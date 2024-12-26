@@ -28,6 +28,10 @@ func main() {
 	// variable in go
 	declares()
 	fmt.Println("_________________________________________________________")
+
+	// basic types in go
+	basicTypes()
+	fmt.Println("_________________________________________________________")
 }
 
 // func in Go
@@ -60,4 +64,32 @@ func declares() {
 	z, h := "Short variable declaration", "no!"
 
 	fmt.Println("z:", z, "| h:", h)
+}
+
+// Basic types
+var (
+	// Boolean
+	ToBe bool = false
+	// String
+	String string = "Hello Go Lang"
+	// Numeric
+	Int      int        = 42                   // size(bits) 32/64, min -2,147,483,648 / -9,223,372,036,854,775,808, max 2,147,483,647 / 9,223,372,036,854,775,807
+	Init8    int8       = 127                  // size(bits) 8, min -128, max 127
+	Init16   int16      = 32767                // size(bits) 16, min -32,768, max 32,767
+	Init32   int32      = 2147483647           // size(bits) 32, min -2,147,483,648, max 2,147,483,647
+	Init64   int64      = 9223372036854775807  // size(bits) 64, min -9,223,372,036,854,775,808, max 9,223,372,036,854,775,807
+	Unit     uint       = 42                   // size(bits) 32/64, min 0, max 4,294,967,295 / 18,446,744,073,709,551,615
+	Unit8    uint8      = 255                  // size(bits) 8, min 0, max 255
+	Unit16   uint16     = 65535                // size(bits) 16, min 0, max 65,535
+	Unit32   uint32     = 4294967295           // size(bits) 32, min 0, max 4,294,967,295
+	Unit64   uint64     = 18446744073709551615 // size(bits) 64, min 0, max 18,446,744,073,709,551,615
+	Float32  float32    = 3.14                 // size(bits) 32, min 1.18E-38, max 3.4E+38
+	Float64  float64    = 3.14                 // size(bits) 64, min 2.23E-308, max 1.8E+308
+	Cmplx64  complex64  = 3.14 + 12i           // size(bits) 64, min 1.18E-38, max 3.4E+38
+	Cmplx128 complex128 = 3.14 + 12i           // size(bits) 128, min 2.23E-308, max 1.8E+308
+	Byte     byte       = 255                  // size(bits) 8, min 0, max 255
+	Rune     rune       = 2147483647           // size(bits) 32, min -2,147,483,648, max 2,147,483,647
+)
+
+func basicTypes() {
 }
