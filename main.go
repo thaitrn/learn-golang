@@ -47,9 +47,10 @@ func date(d int, m int, y int) (date string) {
 }
 
 // Variable in Go
-var c, python, java bool
+var c, python, java, golang bool = false, false, false, true
 
 func declares() {
-	var x int
-	fmt.Println(x, c, python, java)
+	var x, y int = 1, 2
+
+	fmt.Println("x:", x, "| y:", y, "| c:", c, "| python:", python, "| java:", java, "| go:", golang)
 }
