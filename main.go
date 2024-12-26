@@ -21,8 +21,12 @@ func main() {
 	fmt.Println("_________________________________________________________")
 
 	// named return values
-	value := date(9,10,1997)
+	value := date(9, 10, 1997)
 	fmt.Println("date 9/10/1997: ", value)
+	fmt.Println("_________________________________________________________")
+
+	// variable in go
+	declares()
 	fmt.Println("_________________________________________________________")
 }
 
@@ -36,9 +40,16 @@ func fullName(firtName, lastName string) (string, string) {
 	return firtName, lastName
 }
 
-
-//  Named return values
+// Named return values
 func date(d int, m int, y int) (date string) {
 	date = fmt.Sprintf("%2d/%d/%d", d, m, y)
 	return
+}
+
+// Variable in Go
+var c, python, java bool
+
+func declares() {
+	var x int
+	fmt.Println(x, c, python, java)
 }
