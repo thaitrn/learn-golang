@@ -47,10 +47,17 @@ func date(d int, m int, y int) (date string) {
 }
 
 // Variable in Go
+// Initialize variable
 var c, python, java, golang bool = false, false, false, true
 
 func declares() {
+	// Initialize variable
 	var x, y int = 1, 2
 
 	fmt.Println("x:", x, "| y:", y, "| c:", c, "| python:", python, "| java:", java, "| go:", golang)
+
+	// Short variable declaration (:=) in function
+	z, h := "Short variable declaration", "no!"
+
+	fmt.Println("z:", z, "| h:", h)
 }
