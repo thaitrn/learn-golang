@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 )
 
@@ -21,11 +22,38 @@ func main() {
 	fmt.Println("date 9/10/1997: ", value)
 	fmt.Println("_________________________________________________________")
 	// variable in go
-	declares()
+	declared()
 	fmt.Println("_________________________________________________________")
 	// basic types in go
 	basicTypes()
 	fmt.Println("_________________________________________________________")
+	// zero values declaration
+	declaresZeroValues()
+	fmt.Println("_________________________________________________________")
+
+	// type convertions
+	convertType()
+	fmt.Println("_________________________________________________________")
+
+	// Contants
+	declaredContants()
+	fmt.Println("_________________________________________________________")
+
+	// for
+	forLoop()
+	fmt.Println("_________________________________________________________")
+
+	// if
+	fmt.Println(sqrt(2), sqrt(-4))
+	fmt.Println(pow(2, 5, 10), pow(1, 2, 10))
+	fmt.Println("_________________________________________________________")
+
+	// Exercise: Loops and Functions
+	var x float64 = 100
+	fmt.Printf("~ Result: %v\n", exerciseSqrt(x))
+	fmt.Printf("math.Sqrt 81: %v\n", math.Sqrt(x))
+	fmt.Println("_________________________________________________________")
+
 }
 
 // func in Go
@@ -48,7 +76,7 @@ func date(d int, m int, y int) (date string) {
 // Initialize variable
 var c, python, java, golang bool = false, false, false, true
 
-func declares() {
+func declared() {
 	// Initialize variable
 	var x, y int = 1, 2
 
@@ -60,8 +88,8 @@ func declares() {
 	fmt.Println("z:", z, "| h:", h)
 }
 
+// Basic types
 func basicTypes() {
-	// Basic types
 	var (
 		// Boolean
 		ToBe bool = false
@@ -104,4 +132,85 @@ func basicTypes() {
 	fmt.Printf("Type: %T Value: %v\n", Cmplx128, Cmplx128)
 	fmt.Printf("Type: %T Value: %v\n", Byte, Byte)
 	fmt.Printf("Type: %T Value: %v\n", Rune, Rune)
+}
+
+// Zero values
+func declaresZeroValues() {
+	var i int
+	var f float64
+	var b bool
+	var s string
+	fmt.Printf("%v %v %v %q\n", i, f, b, s)
+}
+
+// Type conversions
+func convertType() {
+	var i, j int = 10, 11
+	var f float64 = math.Sqrt(float64(i*i + j*j))
+	var z uint = uint(f)
+	// or using this syntax
+	// i, j := 10, 11
+	// f := math.Sqrt(float64(i*i + j*j))
+	// z := uint(f)
+	fmt.Printf("Type: %T Value: %v\n", i, i)
+	fmt.Printf("Type: %T Value: %v\n", j, j)
+	fmt.Printf("Type: %T Value: %v\n", f, f)
+	fmt.Printf("Type: %T Value: %v\n", z, z)
+}
+
+// Constants
+func declaredContants() {
+	const name string = "Huy Van"
+	// can not use syntax (:=) when declares const
+	// Constants can be character, string, boolean, or numeric values.
+
+	fmt.Printf("Type: %T Value: %v\n", name, name)
+}
+
+// for in Go
+func forLoop() {
+	// For
+	sum := 0
+	for i := 0; i < 100; i++ {
+		sum += 1
+	}
+	fmt.Println("Sum: ", sum)
+	// For continued
+	// the init and post statment can be optional
+	// if the condition expression is omit, it will be loop forever
+	counter := 0
+	for counter < 10 {
+		counter += 1
+	}
+	fmt.Println("Counter: ", counter)
+}
+
+// if in Go
+// if and else
+func sqrt(x float64) string {
+	if x < 0 {
+		return sqrt(-x) + "i"
+	}
+	return fmt.Sprint(math.Sqrt(x))
+}
+func pow(x, n, lim float64) float64 {
+	// v only use in if scope
+	if v := math.Pow(x, n); v < lim {
+		return v
+	} else {
+		return lim
+	}
+}
+
+// Exercise: Loops and Functions
+// https://go.dev/tour/flowcontrol/8
+
+func exerciseSqrt(x float64) float64 {
+	z := float64(1)
+	for math.Abs((z*z-x)/(2*z)) > 1e-6 {
+		fmt.Println(math.Abs((z*z-x)/(2*z)), 1e-6)
+		z -= (z*z - x) / (2 * z)
+		fmt.Printf("z = %v\n", z)
+	}
+	return z
 }
