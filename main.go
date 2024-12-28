@@ -60,6 +60,10 @@ func main() {
 	swith()
 	fmt.Println("_________________________________________________________")
 
+	// Defer in Go
+	Defer()
+	fmt.Println("_________________________________________________________")
+
 }
 
 // func in Go
@@ -199,6 +203,7 @@ func sqrt(x float64) string {
 	}
 	return fmt.Sprint(math.Sqrt(x))
 }
+
 func pow(x, n, lim float64) float64 {
 	// v only use in if scope
 	if v := math.Pow(x, n); v < lim {
@@ -256,4 +261,16 @@ func swith() {
 	default:
 		fmt.Println("Good evening.")
 	}
+}
+
+// Defer
+func Defer() {
+	// defer
+	defer fmt.Println("Defer in Go")
+	for i := 0; i < 3; i++ {
+		// Stacking defers
+		defer fmt.Println(i + 1)
+	}
+	fmt.Println("I try to use ")
+
 }
