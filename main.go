@@ -64,6 +64,10 @@ func main() {
 	Defer()
 	fmt.Println("_________________________________________________________")
 
+	// Pointers in Go
+	pointers()
+	fmt.Println("_________________________________________________________")
+
 }
 
 // func in Go
@@ -273,4 +277,24 @@ func Defer() {
 	}
 	fmt.Println("I try to use ")
 
+}
+
+// Key Concepts of Pointers in Go
+
+func pointers() {
+	// basic
+	var a int = 42
+	var p *int = &a // p is a pointer to an int
+	fmt.Println("Value of a:", a)
+	fmt.Println("Address of a:", &a)
+	fmt.Println("Value of p (address):", p)
+	fmt.Println("Dereferenced p:", *p) // read a through the pointer p
+
+	// Pointer Operations
+	*p = 42 / 2
+	fmt.Println("Value of a after *p = 42 / 2:", a) // set a through the pointer p
+
+	// Nil Pointers
+	var n *int
+	fmt.Println("Nil pointer:", n)
 }
