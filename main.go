@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"runtime"
+	"time"
 )
 
 func main() {
@@ -52,6 +54,10 @@ func main() {
 	var x float64 = 100
 	fmt.Printf("~ Result: %v\n", exerciseSqrt(x))
 	fmt.Printf("math.Sqrt 81: %v\n", math.Sqrt(x))
+	fmt.Println("_________________________________________________________")
+
+	// Switch in Go
+	swith()
 	fmt.Println("_________________________________________________________")
 
 }
@@ -213,4 +219,41 @@ func exerciseSqrt(x float64) float64 {
 		fmt.Printf("z = %v\n", z)
 	}
 	return z
+}
+
+// swith in Go
+func swith() {
+	// switch
+	fmt.Print("Go runs on ")
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		fmt.Println("OS X.")
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+		fmt.Printf("%s.\n", os)
+	}
+
+	// switch evaluation order
+	fmt.Print("When's Saturday? ")
+	switch today := time.Now().Weekday(); time.Saturday {
+	case today + 0:
+		fmt.Println("Today.")
+	case today + 1:
+		fmt.Println("Tomorrow.")
+	case today + 2:
+		fmt.Println("In two days.")
+	default:
+		fmt.Println("Too far away.")
+	}
+
+	// Switch with no condition
+	switch t := time.Now(); {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
 }
