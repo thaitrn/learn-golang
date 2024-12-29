@@ -68,6 +68,10 @@ func main() {
 	pointers()
 	fmt.Println("_________________________________________________________")
 
+	// structs in Go
+	structs()
+	fmt.Println("_________________________________________________________")
+
 }
 
 // func in Go
@@ -317,4 +321,39 @@ func pointers() {
 	x := 10
 	increment(&x)
 	fmt.Println("x after pass adddress to func increment: ", x) // x is now 11
+}
+
+// Structs in Go
+
+type User struct {
+	Name  string
+	Email string
+}
+
+func structs() {
+	u := User{"Huy Van", "dvhuy.dev@gmail.com"}
+	fmt.Println("User structs: ", u)
+
+	// Struct Fields
+	fmt.Println("User Name: ", u.Name)
+
+	// pointers to structs
+	p := &u
+	p.Name = "Van Huy"
+	fmt.Println("u after modifies User Name using poiter p: ", u.Name)
+
+	// struct Literals
+	var (
+		u1 = User{Name: "Huy Van", Email: "dvhuy.dev@gmail.com"}
+		u2 = User{Email: "thaitran@gmail.com"}
+		u3 = User{}
+
+		p1 = &User{Name: "Huy Van", Email: "dvhuy.dev@gmail.com"}
+	)
+
+	fmt.Println("User1: ", u1)
+	fmt.Println("User2: ", u2)
+	fmt.Println("User3: ", u3)
+	fmt.Println("Poiter user: ", p1)
+
 }
