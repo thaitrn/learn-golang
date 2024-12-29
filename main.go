@@ -7,6 +7,8 @@ import (
 	"runtime"
 	"strings"
 	"time"
+
+	"golang.org/x/tour/pic"
 )
 
 func main() {
@@ -75,6 +77,14 @@ func main() {
 
 	// Arrays in Go
 	arr()
+	fmt.Println("_________________________________________________________")
+
+	// Range in Go
+	rangeInGo()
+	fmt.Println("_________________________________________________________")
+
+	// Exercise: Slices
+	pic.Show(Pic)
 	fmt.Println("_________________________________________________________")
 
 }
@@ -433,4 +443,31 @@ func arr() {
 	fmt.Printf("Before Appending to a slice s1 len=%d cap=%d %v\n", len(s1), cap(s1), s1)
 	s1 = append(s1, 2)
 	fmt.Printf("Appending  2 to a slice s1 len=%d cap=%d %v\n", len(s1), cap(s1), s1)
+}
+
+// Range
+func rangeInGo() {
+	s := []int{10, 20, 30, 40, 50}
+	for i, v := range s {
+		fmt.Printf("Index: %d, Value: %d\n", i, v)
+	}
+	for _, v := range s {
+		fmt.Printf("Value: %d\n", v)
+	}
+	for i := range s {
+		fmt.Printf("Index: %d\n", i)
+	}
+}
+
+// Exercise: Slices
+// [][]uint8
+func Pic(dx, dy int) [][]uint8 {
+	pic := make([][]uint8, dy)
+	for y := range pic {
+		pic[y] = make([]uint8, dx)
+		for x := range pic[y] {
+			pic[y][x] = uint8((x * y) / 2)
+		}
+	}
+	return pic
 }
