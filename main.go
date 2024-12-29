@@ -72,6 +72,10 @@ func main() {
 	structs()
 	fmt.Println("_________________________________________________________")
 
+	// Arrays in Go
+	arr()
+	fmt.Println("_________________________________________________________")
+
 }
 
 // func in Go
@@ -356,4 +360,15 @@ func structs() {
 	fmt.Println("User3: ", u3)
 	fmt.Println("Poiter user: ", p1)
 
+}
+
+// Arrays
+func arr() {
+	var a [2]string
+	a[0] = "Hello"
+	a[1] = "World"
+	fmt.Println("Arrays: ", a)
+
+	primes := [6]int{2, 3, 5, 7, 11, 13}
+	fmt.Println("Primes: ", primes)
 }
