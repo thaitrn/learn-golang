@@ -5,6 +5,7 @@ import (
 	"math"
 	"math/rand"
 	"runtime"
+	"strings"
 	"time"
 )
 
@@ -371,4 +372,65 @@ func arr() {
 
 	primes := [6]int{2, 3, 5, 7, 11, 13}
 	fmt.Println("Primes: ", primes)
+
+	// slices
+	var s []int = primes[1:4]
+	fmt.Println("Slices: ", s)
+	s[1] = 100
+	fmt.Println("Primes after modifies slices: ", primes)
+
+	// slice literals
+	s1 := []int{2, 3, 5, 7, 11, 13}
+	fmt.Println("Slice literals: ", s1)
+	s2 := []bool{true, false, true, true, false, true}
+	fmt.Println("Slice literals: ", s2)
+	s3 := []struct {
+		i int
+		b bool
+	}{
+		{2, true},
+		{3, false},
+		{5, true},
+		{7, true},
+		{11, false},
+		{13, true},
+	}
+	fmt.Println("Slice literals: ", s3)
+	fmt.Println("Slice literals with default hight: ", s3[:4])
+	fmt.Println("Slice literals with default low: ", s3[4:])
+
+	// slice length and capacity
+	s1 = s1[:3]
+	fmt.Printf("len=%d cap=%d %v\n", len(s1), cap(s1), s1)
+
+	// nil slices
+	var s4 []int
+	fmt.Println("Nil slices: ", s4, len(s4), cap(s4))
+
+	// Creating a slice with make
+	s5 := make([]int, 5)
+	fmt.Println("Creating a slice with make([]int, 5): ", s5)
+	s5 = make([]int, 1, 5)
+	fmt.Println("Creating a slice with make([]int, 1, 5): ", s5)
+
+	// slices of slices
+	// Create a tic-tac-toe board.
+	board := [][]string{
+		{"_", "_", "_"},
+		{"_", "_", "_"},
+		{"_", "_", "_"},
+	}
+	board[0][0] = "X"
+	board[2][2] = "X"
+	board[1][1] = "X"
+	board[1][0] = "O"
+	board[0][2] = "O"
+	for i := 0; i < len(board); i++ {
+		fmt.Printf("%s\n", strings.Join(board[i], " "))
+	}
+
+	// Appending to a slice
+	fmt.Printf("Before Appending to a slice s1 len=%d cap=%d %v\n", len(s1), cap(s1), s1)
+	s1 = append(s1, 2)
+	fmt.Printf("Appending  2 to a slice s1 len=%d cap=%d %v\n", len(s1), cap(s1), s1)
 }
