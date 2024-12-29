@@ -281,6 +281,15 @@ func Defer() {
 
 // Key Concepts of Pointers in Go
 
+type Person struct {
+	Name string
+	Age  int
+}
+
+func increment(num *int) {
+	*num += 1
+}
+
 func pointers() {
 	// basic
 	var a int = 42
@@ -297,4 +306,15 @@ func pointers() {
 	// Nil Pointers
 	var n *int
 	fmt.Println("Nil pointer:", n)
+
+	// Pointer to Struct
+	s := &Person{"Huy Van", 28}
+	fmt.Println(s.Age, s.Name) // Implicitly dereferences the pointer
+	s.Age = 31                 // Modifies the value through the pointer
+	fmt.Println(s.Age, s.Name) // Implicitly dereferences the pointer
+
+	// Functions and Pointers
+	x := 10
+	increment(&x)
+	fmt.Println("x after pass adddress to func increment: ", x) // x is now 11
 }
