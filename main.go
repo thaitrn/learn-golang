@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"golang.org/x/tour/pic"
+	"golang.org/x/tour/wc"
 )
 
 func main() {
@@ -87,6 +88,12 @@ func main() {
 	pic.Show(Pic)
 	fmt.Println("_________________________________________________________")
 
+	// Maps in Go
+	mapInGo()
+	fmt.Println("_________________________________________________________")
+
+	// Exercise: Maps
+	wc.Test(WordCount)
 }
 
 // func in Go
@@ -470,4 +477,38 @@ func Pic(dx, dy int) [][]uint8 {
 		}
 	}
 	return pic
+}
+
+// Maps
+
+func mapInGo() {
+	m := map[string]int{
+		"Huy":   28,
+		"Khang": 35,
+	}
+
+	fmt.Println(m, "maps")
+
+	// Mutating Maps
+	m["Thai"] = 33
+	fmt.Println(m, "maps after add Thai")
+
+	delete(m, "Khang")
+	fmt.Println(m, "maps after delete Khang")
+
+	v, ok := m["Iconito"]
+	fmt.Println("The value:", v, "Present?", ok)
+}
+
+// Exercise: Maps
+func WordCount(s string) map[string]int {
+	words := strings.Fields(s)
+	counts := make(map[string]int)
+
+	for _, word := range words {
+		counts[word]++
+	}
+	fmt.Println("WordCount: ", counts)
+
+	return counts
 }
