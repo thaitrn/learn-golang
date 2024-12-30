@@ -113,6 +113,23 @@ func main() {
 	fmt.Println()
 	fmt.Println("_________________________________________________________")
 
+	// Methods and pointer indirection
+	v := Vertex{3, 4}
+	v.Scale(2)
+	ScaleFunc(&v, 10)
+
+	p := &Vertex{4, 3}
+	p.Scale(3)
+	ScaleFunc(p, 8)
+
+	fmt.Println(v, p)
+	fmt.Println("_________________________________________________________")
+
+	// Methods and pointer indirection (2)
+	fmt.Println(v.Abs())
+	fmt.Println(AbsFunc(v))
+	fmt.Println(p.Abs())
+	fmt.Println(AbsFunc(*p))
 }
 
 // func in Go
@@ -362,6 +379,7 @@ func pointers() {
 	x := 10
 	increment(&x)
 	fmt.Println("x after pass adddress to func increment: ", x) // x is now 11
+
 }
 
 // Structs in Go
@@ -557,4 +575,32 @@ func fibonacci() func() int {
 		return next
 	}
 	return fn
+}
+
+// Methods and pointer indirection
+
+type Vertex struct {
+	X, Y float64
+}
+
+// Scale is a method that scale a vertex
+func (v *Vertex) Scale(f float64) {
+	v.X = v.X * f
+	v.Y = v.Y * f
+}
+
+// ScaleFunc is a function that scale a vertex
+func ScaleFunc(v *Vertex, f float64) {
+	v.X = v.X * f
+	v.Y = v.Y * f
+}
+
+// Abs is a method that return the absolute value of a vertex
+func (v Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+// AbsFunc is a function that return the absolute value of a vertex
+func AbsFunc(v Vertex) float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
