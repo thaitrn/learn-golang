@@ -116,6 +116,7 @@ func main() {
 	// Methods and pointer indirection
 	v := Vertex{3, 4}
 	v.Scale(2)
+
 	ScaleFunc(&v, 10)
 
 	p := &Vertex{4, 3}
@@ -128,8 +129,33 @@ func main() {
 	// Methods and pointer indirection (2)
 	fmt.Println(v.Abs())
 	fmt.Println(AbsFunc(v))
+
 	fmt.Println(p.Abs())
 	fmt.Println(AbsFunc(*p))
+	fmt.Println("_________________________________________________________")
+
+	// interfaces
+	var i I
+	var t *T
+	i = t
+	i.M()
+	describe(i)
+	i = &T{"hello"}
+	describe(i)
+	var j EmptyInterface
+	describeEmpty(j)
+
+	fmt.Println("_________________________________________________________")
+
+	// Exercise: Stringers
+	stringers()
+	fmt.Println("_________________________________________________________")
+
+	// Exercise: Errors
+	fmt.Println(Sqrt(4))
+	fmt.Println(Sqrt(-4))
+	fmt.Println("_________________________________________________________")
+
 }
 
 // func in Go
@@ -603,4 +629,77 @@ func (v Vertex) Abs() float64 {
 // AbsFunc is a function that return the absolute value of a vertex
 func AbsFunc(v Vertex) float64 {
 	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+// Interfaces
+
+type I interface {
+	M()
+}
+
+type EmptyInterface interface{}
+
+type T struct {
+	S string
+}
+
+func (t *T) M() {
+	if t == nil {
+		fmt.Println("<nil>")
+		return
+	}
+	fmt.Println(t.S)
+}
+
+func describe(i I) {
+	// tyoe assertions
+	v, ok := i.(*T)
+	fmt.Println(v, ok, "type assertions")
+	fmt.Printf("(%v, %T)\n", i, i)
+}
+
+func describeEmpty(i EmptyInterface) {
+	// tyoe assertions
+	v, ok := i.(*T)
+	fmt.Println(v, ok, "type assertions")
+	fmt.Printf("(%v, %T)\n", i, i)
+}
+
+// Exercise: Stringers
+type IPAddr [4]byte
+
+func (ip IPAddr) String() string {
+	// Format the address as a dotted quad
+	return fmt.Sprintf("%d.%d.%d.%d", ip[0], ip[1], ip[2], ip[3])
+}
+
+func stringers() {
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
+
+	}
+}
+
+// Exercise: Errors
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+	return fmt.Sprintf("cannot Sqrt negative number: %v", float64(e))
+}
+func Sqrt(x float64) (float64, error) {
+	if x < 0 {
+		// Return an instance of ErrNegativeSqrt as an error
+		return 0, ErrNegativeSqrt(x)
+	}
+
+	// Simple approximation of the square root
+	z := x / 2
+	for i := 0; i < 10; i++ {
+		z -= (z*z - x) / (2 * z)
+	}
+	return z, nil
 }
