@@ -94,6 +94,25 @@ func main() {
 
 	// Exercise: Maps
 	wc.Test(WordCount)
+	fmt.Println("_________________________________________________________")
+
+	// func value in Go
+	fmt.Println("Compute sum of 3 and 4: ", compute(sum))
+	fmt.Println("_________________________________________________________")
+
+	// clourse in Go
+	pos := adder()
+	fmt.Println("Function closures: ", pos(1))
+	fmt.Println("_________________________________________________________")
+	// Exercise: Fibonacci closure
+
+	f := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Print(f(), ", ")
+	}
+	fmt.Println()
+	fmt.Println("_________________________________________________________")
+
 }
 
 // func in Go
@@ -511,4 +530,31 @@ func WordCount(s string) map[string]int {
 	fmt.Println("WordCount: ", counts)
 
 	return counts
+}
+
+// func value in Go
+func compute(sumFnc func(int, int) int) int {
+	return sumFnc(3, 4)
+}
+
+// clourse in Go
+func adder() func(int) int {
+	sum := 0
+	fn := func(x int) int {
+		sum += x
+		return sum
+	}
+	return fn
+}
+
+// Exercise: Fibonacci closure
+func fibonacci() func() int {
+	a := 0
+	b := 1
+	fn := func() int {
+		next := a
+		a, b = b, next+b
+		return next
+	}
+	return fn
 }
