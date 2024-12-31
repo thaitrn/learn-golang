@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"math"
 	"math/rand"
+	"os"
 	"runtime"
 	"strings"
 	"time"
@@ -176,6 +178,10 @@ func main() {
 
 	// Exercise: Reader
 	reader.Validate(MyReader{})
+	fmt.Println("_________________________________________________________")
+	s := strings.NewReader("Lbh penpxrq gur pbqr!")
+	r := rot13Reader{s}
+	io.Copy(os.Stdout, &r)
 	fmt.Println("_________________________________________________________")
 
 }
@@ -747,4 +753,31 @@ func (r MyReader) Read(p []byte) (int, error) {
 		p[i] = 'A'
 	}
 	return len(p), nil
+}
+
+// Exercise: rot13Reader
+type rot13Reader struct {
+	r io.Reader
+}
+
+func (r *rot13Reader) Read(p []byte) (n int, err error) {
+	n, err = r.r.Read(p)
+
+	for i := range p {
+		p[i] = rot13(p[i])
+	}
+
+	return n, err
+}
+
+func rot13(b byte) byte {
+	if b >= 'A' && b <= 'Z' {
+		print('A'+(b-'A'+13)%26, " ")
+		return 'A' + (b-'A'+13)%26
+	} else if b >= 'a' && b <= 'z' {
+		print('a'+(b-'a'+13)%26, " ")
+		return 'a' + (b-'a'+13)%26
+	}
+
+	return b
 }
