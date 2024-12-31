@@ -190,6 +190,20 @@ func main() {
 
 	m := Image{256, 256}
 	pic.ShowImage(m)
+	fmt.Println("_________________________________________________________")
+
+	// type parameters
+	printType(10)
+	printType("10")
+	printType(true)
+
+	// generic type
+	list := LinkedList[int]{}
+	list.Insert(1)
+	list.Insert(2)
+	list.Insert(3)
+	list.Print() // Output: 1 -> 2 -> 3 -> nil
+	fmt.Println("_________________________________________________________")
 
 }
 
@@ -805,4 +819,46 @@ func (img Image) ColorModel() color.Model {
 func (img Image) At(x, y int) color.Color {
 	v := uint8((x ^ y) % 256)
 	return color.RGBA{v, v, 255, 255}
+}
+
+// type parameter
+func printType[T comparable](t T) {
+	fmt.Printf("(%v, %T)\n", t, t)
+}
+
+// Generic type
+// Define a generic ListNode with a type parameter
+type ListNode[T any] struct {
+	value T
+	next  *ListNode[T]
+}
+
+// Define a generic LinkedList with a type parameter
+type LinkedList[T any] struct {
+	head *ListNode[T]
+}
+
+// Add a method to insert a value at the end of the list
+func (l *LinkedList[T]) Insert(value T) {
+	newNode := &ListNode[T]{value: value}
+	if l.head == nil {
+		l.head = newNode
+		return
+	}
+	current := l.head
+	for current.next != nil {
+		current = current.next
+	}
+	current.next = newNode
+	fmt.Print(current)
+}
+
+// Add a method to print the values in the list
+func (l *LinkedList[T]) Print() {
+	current := l.head
+	for current != nil {
+		fmt.Printf("%v -> ", current.value)
+		current = current.next
+	}
+	fmt.Println("nil")
 }
