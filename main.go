@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"golang.org/x/tour/pic"
+	"golang.org/x/tour/reader"
 	"golang.org/x/tour/wc"
 )
 
@@ -171,6 +172,10 @@ func main() {
 	// Exercise: Errors
 	fmt.Println(Sqrt(4))
 	fmt.Println(Sqrt(-4))
+	fmt.Println("_________________________________________________________")
+
+	// Exercise: Reader
+	reader.Validate(MyReader{})
 	fmt.Println("_________________________________________________________")
 
 }
@@ -730,4 +735,16 @@ func Sqrt(x float64) (float64, error) {
 		z -= (z*z - x) / (2 * z)
 	}
 	return z, nil
+}
+
+// Exercise: Readers
+
+type MyReader struct{}
+
+// Read implements io.Reader.
+func (r MyReader) Read(p []byte) (int, error) {
+	for i := range p {
+		p[i] = 'A'
+	}
+	return len(p), nil
 }
