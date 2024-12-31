@@ -112,7 +112,15 @@ func main() {
 	}
 	fmt.Println()
 	fmt.Println("_________________________________________________________")
+	// Method
+	u := User{"Huy Van", "dvhuy.dev@gmail.com"}
+	fmt.Println(u.String())
+	fmt.Println("_________________________________________________________")
 
+	// poiter receivers
+	u.updateEmail("huy.dinh@navigosgroup.com")
+	fmt.Println(u.String())
+	fmt.Println("_________________________________________________________")
 	// Methods and pointer indirection
 	v := Vertex{3, 4}
 	v.Scale(2)
@@ -145,6 +153,15 @@ func main() {
 	var j EmptyInterface
 	describeEmpty(j)
 
+	fmt.Println("_________________________________________________________")
+
+	// Exercise: Stringers
+	stringers()
+	fmt.Println("_________________________________________________________")
+
+	// Exercise: Errors
+	fmt.Println(Sqrt(4))
+	fmt.Println(Sqrt(-4))
 	fmt.Println("_________________________________________________________")
 
 	// Exercise: Stringers
@@ -601,6 +618,17 @@ func fibonacci() func() int {
 		return next
 	}
 	return fn
+}
+
+// Method
+func (u User) String() string {
+	return fmt.Sprintf("User: %v, %v", u.Name, u.Email)
+}
+
+// poiter receivers
+
+func (u *User) updateEmail(email string) {
+	u.Email = email
 }
 
 // Methods and pointer indirection
