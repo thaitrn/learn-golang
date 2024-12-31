@@ -205,6 +205,20 @@ func main() {
 	list.Print() // Output: 1 -> 2 -> 3 -> nil
 	fmt.Println("_________________________________________________________")
 
+	// Channels
+	sChannels := []int{7, 2, 8, -9, 4, 0}
+
+	c := make(chan int)
+
+	go Channels(sChannels[:len(sChannels)/2], c)
+	go Channels(sChannels[len(sChannels)/2:], c)
+	z, k := <-c, <-c // receive from c
+	fmt.Println(z, k, z+k)
+	d := make(chan int, 10)
+	go fibonacci2(cap(d), d)
+	for i := range d {
+		fmt.Println(i, "á")
+	}
 }
 
 // func in Go
@@ -861,4 +875,24 @@ func (l *LinkedList[T]) Print() {
 		current = current.next
 	}
 	fmt.Println("nil")
+}
+
+// goroutines and channels
+func Channels(s []int, c chan int) {
+	fmt.Println(s, c)
+
+	sum := 0
+	for _, v := range s {
+		sum += v
+	}
+	c <- sum // send sum to c
+}
+
+func fibonacci2(n int, c chan int) {
+	x, y := 0, 1
+	for i := 0; i < n; i++ {
+		c <- x
+		x, y = y, x+y
+	}
+	close(c)
 }
