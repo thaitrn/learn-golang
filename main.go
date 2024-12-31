@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"image"
+	"image/color"
 	"io"
 	"math"
 	"math/rand"
@@ -183,6 +185,11 @@ func main() {
 	r := rot13Reader{s}
 	io.Copy(os.Stdout, &r)
 	fmt.Println("_________________________________________________________")
+
+	// Exercise: Images
+
+	m := Image{256, 256}
+	pic.ShowImage(m)
 
 }
 
@@ -780,4 +787,22 @@ func rot13(b byte) byte {
 	}
 
 	return b
+}
+
+// Exercise: Images
+type Image struct {
+	width, height int
+}
+
+func (img Image) Bounds() image.Rectangle {
+	return image.Rect(0, 0, img.width, img.height)
+}
+
+func (img Image) ColorModel() color.Model {
+	return color.RGBAModel
+}
+
+func (img Image) At(x, y int) color.Color {
+	v := uint8((x ^ y) % 256)
+	return color.RGBA{v, v, 255, 255}
 }
